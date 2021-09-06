@@ -51,7 +51,7 @@ import matplotlib.pyplot as plt
 
 
 df = pd.read_excel(r"C:\Users\jimmy\Desktop\Copia_de_Seguridad\Keepcoding_2\TFB-SmartBot\chatbot\training_chatbot.xlsx")
-df.head()
+
 finish = False
 while finish == False:
     keyboard = input('\n')

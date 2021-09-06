@@ -48,15 +48,16 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 
 import matplotlib.pyplot as plt
 
+import chatbot_function
 
 
-df = pd.read_excel(r"C:\Users\jimmy\Desktop\Copia_de_Seguridad\Keepcoding_2\TFB-SmartBot\chatbot\training_chatbot.xlsx")
-df.head()
+
 finish = False
 while finish == False:
+    print("Hi, I am wikibot, what can I do for you?")
     keyboard = input('\n')
     
-    intent, keyword = Intent_model(keyboard)
+    intent, keyword = chatbot_function(keyboard)
 
     if intent == "Gretting":
         print("Hi what can I do for you?")
@@ -68,49 +69,6 @@ while finish == False:
         print("This is what I have found related to {}".format(keyword))
 
 
-def chatbot():
-    input_text = input()
 
-    test = pd.DataFrame(data={'Sentence': [input_text]})
-    df_test_proc, test_proc = processing(test, cv=cv)
-
-    gret_prob = mlp_greeting.predict_proba(test_proc)
-    search_prob = mlp_search.predict_proba(test_proc)
-    sugg_prob = mlp_suggestion.predict_proba(test_proc)
-
-    probs = [gret_prob, search_prob, sugg_prob]
-    idx = np.argmax(probs)
-
-    if idx == 0:
-        print("Esto es un saludo")
-    elif idx == 1:
-        print("Esto es una búsqueda")
-    else:
-        print("Esto es una sugerencia")
-
-    print('¿Hemos acertado?')
-
-    respuesta = input()
-    if (respuesta == 'No' or respuesta == 'no'):
-        probs = np.delete(probs, idx)
-        idx_2 = np.argmax(probs)
-
-        if idx == 0:
-            if idx_2 == 0:
-                print("Esto es una búsqueda")
-            else:
-                print("Esto es una sugerencia")
-        elif idx == 1:
-            if idx_2 == 0:
-                print("Esto es un saludo")
-            else:
-                print("Esto es una sugerencia")
-        else:
-            if idx_2 == 0:
-                print("Esto es un saludo")
-            else:
-                print("Esto es una búsqueda")
-    else:
-        print('¡Genial! ¡Hemos acertado!')
 
 
