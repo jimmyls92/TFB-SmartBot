@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 import chatbot_main_modified
 
+chatbot_main_modified.deactivate()
 
 st.title("Welcome to SmartBot")
 

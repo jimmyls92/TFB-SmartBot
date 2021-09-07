@@ -39,4 +39,6 @@ def generate_text(keyboard):
             return "It was a pleasure helping you. Wikibot is now going to sleep!"
     if activated == False:
         return "That is not a greeting, try again if you want to activate Wikibot"
-        #continue
+        
+def deactivate():
+    activated == False
