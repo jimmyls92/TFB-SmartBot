@@ -57,21 +57,21 @@ while finish == False:
 
     if activated == False:
         print("Please, say a gretting to activate Wikibot")
-
-        keyboard = input('')
-    
+        keyboard = input()
         intent, keyword = Intent_detection_function(keyboard)
 
         if intent == "Greeting":
             activated = True
             print("Hi, this is Wikibot, an NLP based chatbot aimed to help in your wikipedia search")
-
+        else:
+            print("That is not a greeting, try again if you want to activate Wikibot")
+            continue
 
     if activated == True:
 
         while activated == True:
             print("What can I do for you?")
-            keyboard = input('')
+            keyboard = input()
             intent, keyword = Intent_detection_function(keyboard)
 
             if intent == "Greeting":
@@ -97,9 +97,7 @@ while finish == False:
                 activated = False
 
 
-    if activated == False:
-        print("That is not a greeting, try again if you want to activate Wikibot")
-        continue
+
 
 
 
