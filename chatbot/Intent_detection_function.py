@@ -21,6 +21,7 @@ from entity_function import getEntities
 
 
 def Intent_detection_function(keyboard):
+
     mlp_greeting = keras.models.load_model('model_greetings.h5')
     mlp_search = keras.models.load_model('model_search.h5')
     mlp_suggestion = keras.models.load_model('model_suggestion.h5')
@@ -32,7 +33,7 @@ def Intent_detection_function(keyboard):
     test_proc = cv.transform(input_text['Sentence'])
     #df_test_proc, test_proc = processing(test, cv=cv)
 
-    test_proc = test_proc.toarray()
+    #test_proc = test_proc.toarray()
 
     gret_prob = mlp_greeting.predict(test_proc)
 
