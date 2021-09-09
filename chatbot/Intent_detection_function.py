@@ -13,10 +13,6 @@ import joblib
 import keras
 import sys
 
-import matplotlib.pyplot as plt
-
-import entity_function
-
 from entity_function import getEntities
 
 
@@ -60,34 +56,3 @@ def Intent_detection_function(keyboard):
         keyword = None
 
     return intent, keyword
-
-
-
-
-'''
-    print('¿Hemos acertado?')
-
-    respuesta = input()
-    if (respuesta == 'No' or respuesta == 'no'):
-        probs = np.delete(probs, idx)
-        idx_2 = np.argmax(probs)
-
-        if idx == 0:
-            if idx_2 == 0:
-                print("Esto es una búsqueda")
-            else:
-                print("Esto es una sugerencia")
-        elif idx == 1:
-            if idx_2 == 0:
-                print("Esto es un saludo")
-            else:
-                print("Esto es una sugerencia")
-        else:
-            if idx_2 == 0:
-                print("Esto es un saludo")
-            else:
-                print("Esto es una búsqueda")
-    else:
-        print('¡Genial! ¡Hemos acertado!')
-'''
-

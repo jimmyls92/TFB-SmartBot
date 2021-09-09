@@ -4,9 +4,6 @@ import joblib
 
 import sys
 
-
-#from utils import load_cinema_reviews
-
 import random
 random.seed(42)
 import numpy as np
@@ -21,27 +18,6 @@ from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.model_selection import TimeSeriesSplit, GridSearchCV
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_curve, precision_recall_curve
 
-import matplotlib.pyplot as plt
-
-import random 
-
-import joblib
-
-import sys
-
-
-#from utils import load_cinema_reviews
-
-import random
-random.seed(42)
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plot
-import sklearn
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
-
-import matplotlib.pyplot as plt
 
 import warnings
 warnings.filterwarnings("ignore")
