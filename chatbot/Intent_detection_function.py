@@ -12,6 +12,7 @@ from sklearn.model_selection import TimeSeriesSplit, GridSearchCV
 import joblib
 import keras
 import sys
+import scipy
 
 from entity_function import getEntities
 
@@ -30,6 +31,7 @@ def Intent_detection_function(keyboard):
     #df_test_proc, test_proc = processing(test, cv=cv)
 
     #test_proc = test_proc.toarray()
+    scipy.sparse.csr_matrix.sort_indices(test_proc)
 
     gret_prob = mlp_greeting.predict(test_proc)
 
