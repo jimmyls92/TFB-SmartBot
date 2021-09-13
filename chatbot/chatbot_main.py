@@ -22,10 +22,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import warnings
 warnings.filterwarnings("ignore")
 
-from Intent_detection_2_0.py import Intent_detection_function
+from  Intent_detection_2_0 import Intent_detection_function
 import wikipedia as wiki
 
-
+df = pd.read_excel('database_intents.xlsx')
 
 finish = False
 activated= False
@@ -34,7 +34,7 @@ while finish == False:
     if activated == False:
         print("Please, say a gretting to activate Wikibot")
         keyboard = input()
-        intent, keyword = Intent_detection_function(keyboard)
+        intent, keyword = Intent_detection_function(keyboard, df)
 
         if intent == "Greeting":
             activated = True
@@ -48,7 +48,7 @@ while finish == False:
         while activated == True:
             print("What can I do for you?")
             keyboard = input()
-            intent, keyword = Intent_detection_function(keyboard)
+            intent, keyword = Intent_detection_function(keyboard, df)
 
             if intent == "Greeting":
                 print("Wikibot is already activated, try to ask me a question!")
