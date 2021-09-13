@@ -22,7 +22,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 import warnings
 warnings.filterwarnings("ignore")
 
-from Intent_detection_function import Intent_detection_function
+from Intent_detection_2_0.py import Intent_detection_function
 import wikipedia as wiki
 
 
