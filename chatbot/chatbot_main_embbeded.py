@@ -57,7 +57,7 @@ while finish == False:
         while activated == True:
             print("What can I do for you?")
             keyboard = input()
-            intent, keyword = Intent_detection_embbeded(keyboard)
+            intent, keyword = Intent_detection_embbeded(keyboard, df)
 
             if intent == "Greeting":
                 print("Wikibot is already activated, try to ask me a question!")
