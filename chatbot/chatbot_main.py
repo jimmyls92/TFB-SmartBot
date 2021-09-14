@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 from  Intent_detection_2_0 import Intent_detection_function
 import wikipedia as wiki
 
-df = pd.read_excel('database_intents.xlsx')
+df = pd.read_excel('database_intents.xlsx', engine='openpyxl')
 
 finish = False
 activated= False

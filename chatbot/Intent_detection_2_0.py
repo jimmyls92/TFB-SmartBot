@@ -24,6 +24,8 @@ def Intent_detection_function(keyboard, df):
     if keyword != 0:
         search_plus = 0.3
         sugg_plus = 0.3
+        gret_plus = 0
+        fare_plus = 0
         keyboard.replace(keyword, '')
 
         def remove_entity(x):
@@ -35,8 +37,10 @@ def Intent_detection_function(keyboard, df):
         df_new = df
         gret_plus = 0.3
         fare_plus = 0.3
+        search_plus = 0
+        sugg_plus = 0
 
-    if exists == keyboard in df_new.Sentence:
+    if keyboard in df_new:
         def coincidence(x):
             if x == keyboard:
                 return row.name
