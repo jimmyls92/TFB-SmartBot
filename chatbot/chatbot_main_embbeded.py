@@ -20,7 +20,10 @@ from sklearn.feature_selection import chi2
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.model_selection import TimeSeriesSplit, GridSearchCV
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_curve, precision_recall_curve
+import tensorflow as tf
+from tensorflow.keras.layers import TextVectorization
 
+import pickle
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -28,7 +31,10 @@ warnings.filterwarnings("ignore")
 from Intent_detection_function import Intent_detection_function
 import wikipedia as wiki
 
-
+from_disk = pickle.load(open("tv_layer.pkl", "rb"))
+new_v = TextVectorization.from_config(from_disk['config'])
+new_v.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
+new_v.set_weights(from_disk['weights'])
 
 finish = False
 activated= False
