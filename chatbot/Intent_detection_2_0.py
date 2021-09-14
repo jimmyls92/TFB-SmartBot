@@ -21,18 +21,31 @@ from entity_function import getEntities
 def Intent_detection_function(keyboard, df):
     keyword = getEntities(keyboard)
 
+    def coincidence(x):
+        if x['Sentence'] == keyboard:
+            return x.name
+        else:
+            return 0
+
+    if df['Sentence'].str.contains(keyboard, case=True).any():
+        index = df.apply(lambda x: coincidence(x), axis=1)
+        intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
+        return intent, keyword
+
     if keyword != 0:
         search_plus = 0.3
         sugg_plus = 0.3
         gret_plus = 0
         fare_plus = 0
-        keyboard.replace(keyword, '')
+        keyboard = keyboard.replace(keyword, '')
+
 
         def remove_entity(x):
-            if "entity" in x:
-                x.replace('entity', '')
+            if "entity" in x['Sentence']:
+                x['Sentence'] = x['Sentence'].replace('entity', '')
+            return x
 
-        df_new = df['Sentence'].apply(lambda x: remove_entity(x))
+        df_new = df.apply(lambda x: remove_entity(x), axis=1)
     else:
         df_new = df
         gret_plus = 0.3
@@ -40,19 +53,13 @@ def Intent_detection_function(keyboard, df):
         search_plus = 0
         sugg_plus = 0
 
-    if keyboard in df_new:
-        def coincidence(x):
-            if x == keyboard:
-                return row.name
-            else:
-                return 0
-
-        index = df['Sentence'].apply(lambda x: coincidence(x))
-        intent = df.loc[index.to_numpy().argmax(), ['Intent Type']]
+    if df_new['Sentence'].str.contains(keyboard, case=True).any():
+        index = df_new.apply(lambda x: coincidence(x), axis=1)
+        intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
         if keyword != 0:
             return intent, keyword
         else:
-            return intent
+            return intent, keyword
 
     else:
 
@@ -85,10 +92,8 @@ def Intent_detection_function(keyboard, df):
             keyword = None
         elif idx == 1:
             intent = "Search"
-            keyword = getEntities(keyboard)
         elif idx == 2:
             intent = "Suggestions"
-            keyword = getEntities(keyboard)
         elif idx == 3:
             intent = "Farewell"
             keyword = None
