@@ -22,13 +22,7 @@ import pickle
 from entity_function import getEntities
 
 
-def Intent_detection_embbeded(keyboard):
-
-    from_disk = pickle.load(open("tv_layer.pkl", "rb"))
-    new_v = TextVectorization.from_config(from_disk['config'])
-    new_v.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
-    new_v.set_weights(from_disk['weights'])
-    nlp_embbeded = keras.models.load_model('embbedings.h5')
+def Intent_detection_embbeded(keyboard, df):
 
     keyword = getEntities(keyboard)
 
@@ -39,6 +33,7 @@ def Intent_detection_embbeded(keyboard):
             return 0
 
     if df['Sentence'].str.contains(keyboard, case=True).any():
+        print('Coincidence 1')
         index = df.apply(lambda x: coincidence(x), axis=1)
         intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
         return intent, keyword
@@ -64,20 +59,29 @@ def Intent_detection_embbeded(keyboard):
         sugg_plus = 0
 
     if df_new['Sentence'].str.contains(keyboard, case=True).any():
+        print('Coincidence 2')
         index = df_new.apply(lambda x: coincidence(x), axis=1)
+        print()
         intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
         if keyword != 0:
             return intent, keyword
         else:
             return intent, keyword
     else:
+
+        from_disk = pickle.load(open("tv_layer.pkl", "rb"))
+        new_v = TextVectorization.from_config(from_disk['config'])
+        new_v.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
+        new_v.set_weights(from_disk['weights'])
+        nlp_embbeded = keras.models.load_model('embbedings.h5')
+
         input_text = pd.DataFrame(data={'Sentence': [keyboard]})
 
         test_proc = new_v(input_text)
         probs = nlp_embbeded.predict(test_proc)
-        probs = [probs[0] + gret_plus, probs[1] + search_plus,
-                 probs[2] + sugg_plus, probs[3] + fare_plus,
-                 probs[4], probs[5]]
+        probs = [probs[0][0] + gret_plus, probs[0][1] + search_plus,
+                 probs[0][2] + sugg_plus, probs[0][3] + fare_plus,
+                 probs[0][4], probs[0][5]]
         print(probs)
         idx = np.argmax(probs)
 
@@ -86,10 +90,8 @@ def Intent_detection_embbeded(keyboard):
             keyword = None
         elif idx == 1:
             intent = "Search"
-            keyword = getEntities(keyboard)
         elif idx == 2:
             intent = "Suggestions"
-            keyword = getEntities(keyboard)
         elif idx == 3:
             intent = "Farewell"
             keyword = None
