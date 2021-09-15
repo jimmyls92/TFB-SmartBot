@@ -21,8 +21,6 @@ st.write("Please, say a gretting to activate Wikibot")
 
 text = st.text_input("Enter your text", value="")
 
-st.write("Probando "+ text)
-
 lines = chatbot_main_modified_2_0.generate_text(text).split("\n")
 for line in lines:
     st.write(line)
