@@ -2,17 +2,7 @@ import random
 random.seed(42)
 import numpy as np
 import pandas as pd
-import sklearn
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.feature_selection import chi2
-from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
-from sklearn.model_selection import TimeSeriesSplit, GridSearchCV
-import joblib
 import keras
-import sys
-import scipy
 
 import tensorflow as tf
 from tensorflow.keras.layers import TextVectorization
@@ -22,7 +12,7 @@ import pickle
 from entity_function import getEntities
 
 
-def Intent_detection_embbeded(keyboard, df):
+def Intent_detection(keyboard, df):
 
     keyword = getEntities(keyboard)
 
@@ -61,12 +51,9 @@ def Intent_detection_embbeded(keyboard, df):
     if df_new['Sentence'].str.contains(keyboard, case=True).any():
         print('Coincidence 2')
         index = df_new.apply(lambda x: coincidence(x), axis=1)
-        print()
         intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
-        if keyword != 0:
-            return intent, keyword
-        else:
-            return intent, keyword
+        return intent, keyword
+
     else:
 
         from_disk = pickle.load(open("tv_layer.pkl", "rb"))
