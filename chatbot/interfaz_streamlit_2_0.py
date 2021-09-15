@@ -17,7 +17,7 @@ image = Image.open('bot.jpg')
 
 st.image(image)
 
-st.write("Please, say a gretting to activate Wikibot")
+st.write("")
 
 text = st.text_input("Enter your text", value="")
 

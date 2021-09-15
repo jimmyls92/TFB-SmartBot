@@ -94,7 +94,7 @@ def generate_text(keyboard):
         if intent == "Greeting":
             return "Wikibot is already activated, try to ask me a question!"
         elif intent == "Search":
-            url += keyword
+            url += str(keyword)
             response = requests.request("GET", url, headers=headers, data=payload)
             if response.status_code == 200:
                 return response.text
