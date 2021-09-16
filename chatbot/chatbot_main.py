@@ -40,7 +40,6 @@ while finish == False:
 
         keyboard = preprocessing(pd.Series(data={'Sentence': keyboard}))
         keyboard = keyboard['Sentence']
-        print(keyboard)
         intent, keyword = Intent_detection(keyboard, df)
 
         if intent == "Greeting":
@@ -64,7 +63,6 @@ while finish == False:
             keyboard = input()
             keyboard = preprocessing(pd.Series(data={'Sentence': keyboard}))
             keyboard = keyboard['Sentence']
-            print(keyboard)
             intent, keyword = Intent_detection(keyboard, df)
 
             if intent == "Greeting":

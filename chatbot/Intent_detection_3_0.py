@@ -23,7 +23,6 @@ def Intent_detection(keyboard, df):
             return 0
 
     if df['Sentence'].str.contains(keyboard, case=True).any():
-        print('Coincidence 1')
         index = df.apply(lambda x: coincidence(x), axis=1)
         intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
         return intent, keyword
@@ -49,7 +48,6 @@ def Intent_detection(keyboard, df):
         sugg_plus = 0
 
     if df_new['Sentence'].str.contains(keyboard, case=True).any():
-        print('Coincidence 2')
         index = df_new.apply(lambda x: coincidence(x), axis=1)
         intent = df.loc[np.argmax(index.to_numpy()), 'Intent type']
         return intent, keyword
@@ -69,7 +67,6 @@ def Intent_detection(keyboard, df):
         probs = [probs[0][0] + gret_plus, probs[0][1] + search_plus,
                  probs[0][2] + sugg_plus, probs[0][3] + fare_plus,
                  probs[0][4], probs[0][5]]
-        print(probs)
         idx = np.argmax(probs)
 
         if idx == 0:
