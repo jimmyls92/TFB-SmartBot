@@ -3,9 +3,9 @@ import requests
 import validators
 import streamlit as st
 import pandas as pd
-import chatbot_main_modified_2_0
+import chatbot_main_cloud
 
-chatbot_main_modified_2_0.deactivate()
+chatbot_main_cloud.deactivate()
 
 st.title("Welcome to SmartBot")
 
@@ -21,6 +21,6 @@ st.write("")
 
 text = st.text_input("Enter your text", value="")
 
-lines = chatbot_main_modified_2_0.generate_text(text).split("\n")
+lines = chatbot_main_cloud.generate_text(text).split("\n")
 for line in lines:
     st.write(line)
